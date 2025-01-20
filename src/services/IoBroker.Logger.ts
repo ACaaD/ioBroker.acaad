@@ -9,7 +9,8 @@ class IoBrokerLogger implements ICsLogger {
   }
 
   logTrace(...data: any[]): void {
-    const logCb = this.adapter.log?.silly;
+    // TODO: Change from silly debug -> Adjust back
+    const logCb = this.adapter.log?.debug;
     this.log(logCb, data);
   }
 

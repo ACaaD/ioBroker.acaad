@@ -29,7 +29,7 @@ class IoBrokerLogger {
   }
   logTrace(...data) {
     var _a;
-    const logCb = (_a = this.adapter.log) == null ? void 0 : _a.silly;
+    const logCb = (_a = this.adapter.log) == null ? void 0 : _a.debug;
     this.log(logCb, data);
   }
   logDebug(...data) {
