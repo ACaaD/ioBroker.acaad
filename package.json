@@ -29,7 +29,7 @@
     "check": "tsc --noEmit",
     "lint": "heft lint",
     "test:ts": "mocha --config test/mocharc.custom.json src/**/*.test.ts",
-    "test:package": "mocha test/package --exit",
+    "test:package": "npm run test",
     "test": "npm run test:ts && npm run test:integration",
     "test:integration": "mocha --config test/mocharc.custom.json test/integration.ts --exit"
   },
