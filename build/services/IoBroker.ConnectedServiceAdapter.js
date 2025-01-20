@@ -166,14 +166,12 @@ let IoBrokerCsAdapter = class {
         }
       }
     );
-    await Promise.all(
-      this.handleComponent(component).map(async ({ _id: idSuffix, ...ioBrokerObject }) => {
-        const sId = `${deviceId}.${idSuffix}`;
-        this._logger.logTrace(`Extending object with identifier: '${sId}'.`);
-        const { id: stateId } = await this._ioBrokerContext.extendObjectAsync(sId, ioBrokerObject);
-        await this._ioBrokerContext.addObjectAsync(stateId, component);
-      })
-    );
+    for (const { _id: idSuffix, ...ioBrokerObject } of this.handleComponent(component)) {
+      const sId = `${deviceId}.${idSuffix}`;
+      this._logger.logTrace(`Extending object with identifier: '${sId}'.`);
+      const { id: stateId } = await this._ioBrokerContext.extendObjectAsync(sId, ioBrokerObject);
+      await this._ioBrokerContext.addObjectAsync(stateId, component);
+    }
   }
   async registerStateChangeCallbackAsync(cb) {
     await this._ioBrokerContext.registerStateChangeCallbackAsync(cb);
