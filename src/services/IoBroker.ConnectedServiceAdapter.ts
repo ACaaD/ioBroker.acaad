@@ -172,21 +172,31 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
   async createComponentModelAsync(component: Component): Promise<void> {
     const componentDescriptor = this.getComponentDescriptorByComponent(component);
 
-    const { id: deviceId } = await this._ioBrokerContext.extendObjectAsync(
-      componentDescriptor.toIdentifier(),
-      {
-        type: 'channel',
-        common: {
-          name: component.type
+    try {
+      const { id: deviceId } = await this._ioBrokerContext.extendObjectAsync(
+        componentDescriptor.toIdentifier(),
+        {
+          type: 'channel',
+          common: {
+            name: component.type
+          }
         }
-      }
-    );
+      );
 
-    for (const { _id: idSuffix, ...ioBrokerObject } of this.handleComponent(component)) {
-      const sId = `${deviceId}.${idSuffix}`;
-      this._logger.logTrace(`Extending object with identifier: '${sId}'.`);
-      const { id: stateId } = await this._ioBrokerContext.extendObjectAsync(sId, ioBrokerObject);
-      await this._ioBrokerContext.addObjectAsync(stateId, component);
+      for (const { _id: idSuffix, ...ioBrokerObject } of this.handleComponent(component)) {
+        const sId = `${deviceId}.${idSuffix}`;
+        this._logger.logTrace(`Extending object with identifier: '${sId}'.`);
+        const { id: stateId } = await this._ioBrokerContext.extendObjectAsync(sId, ioBrokerObject);
+        await this._ioBrokerContext.addObjectAsync(stateId, component);
+      }
+    } catch (err) {
+      this._logger.logError(undefined, undefined, (err as any).toString());
+
+      this._logger.logError(
+        undefined,
+        err as Error,
+        `Failed to create component model for ${component.name}.`
+      );
     }
 
     // await Promise.all(
