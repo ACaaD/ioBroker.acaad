@@ -1,0 +1,30 @@
+{
+  "name": "iobroker.acaad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "heft build --clean"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "acaad-core": "workspace:*",
+    "@iobroker/adapter-core": "~3.2.3",
+    "@iobroker/types": "~7.0.6",
+    "tsyringe": "~4.8.0",
+    "effect": "~3.12.5",
+    "acaad.toolchain": "workspace:*"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "~20.1.4",
+    "typescript": "~5.7.3",
+    "@types/node": "~22.10.7",
+    "@rushstack/heft-typescript-plugin": "~0.6.6",
+    "@rushstack/heft": "0.68.13",
+    "tslib": "~2.8.1",
+    "acaad.toolchain": "workspace:*",
+    "eslint": "^8.57.0"
+  }
+}

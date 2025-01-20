@@ -1,0 +1,22 @@
+{
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "importHelpers": true,
+  "compilerOptions": {
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": true,
+    "noEmitOnError": true,
+    "outDir": "./build/",
+    "removeComments": false,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "module": "ESNext",
+    "moduleResolution": "node"
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "exclude": ["build/**", "node_modules/**", "widgets/**"]
+}

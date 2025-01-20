@@ -1,0 +1,8 @@
+Invoking: heft build --clean 
+ ---- build started ---- 
+[build:clean] Deleted 0 files and 1 folder
+[build:typescript] The TypeScript compiler version 5.7.3 is newer than the latest version that was tested with Heft (5.6); it may not work correctly.
+[build:typescript] Using TypeScript version 5.7.3
+[build:lint] Using ESLint version 8.57.1
+ ---- build finished (3.242s) ---- 
+-------------------- Finished (3.246s) --------------------
