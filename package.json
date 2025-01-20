@@ -12,7 +12,7 @@
   },
   "homepage": "https://github.com/OlliMartin/ioBroker.acaad",
   "license": "Apache-2.0",
-  "main": "lib/main.js",
+  "main": "build/main.js",
   "files": [
     "admin{,/!(src)/**}/!(tsconfig|tsconfig.*|.eslintrc).{json,json5}",
     "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,js}",
@@ -26,7 +26,11 @@
   },
   "scripts": {
     "build": "build-adapter ts",
-    "build2": "heft build --clean",
+    "check": "tsc --noEmit",
+    "lint": "eslint --ext .ts src/",
+    "test:ts": "mocha --config test/mocharc.custom.json src/**/*.test.ts",
+    "test:package": "mocha test/package --exit",
+    "test": "npm run test:ts && npm run test:integration",
     "test:integration": "mocha --config test/mocharc.custom.json test/integration.ts --exit"
   },
   "dependencies": {
