@@ -17,11 +17,7 @@ on:
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
-
-defaults:
-  run:
-    working-directory: ./iobroker.acaad
-
+  
 jobs:
   # Performs quick checks before the expensive test runs
   check-and-lint:
