@@ -6,5 +6,5 @@
   build\services\IoBroker.Constants.js                1.2kb
   ...and 5 more output files...
 
-Done in 9ms
+Done in 8ms
 ✔ Type-checking ./tsconfig.build.json succeeded!

@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import * as utils from '@iobroker/adapter-core';
 import { DependencyContainer } from 'tsyringe';
 import {
