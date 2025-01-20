@@ -27,7 +27,7 @@
   "scripts": {
     "build": "build-adapter ts",
     "check": "tsc --noEmit",
-    "lint": "eslint --ext .ts src/",
+    "lint": "heft lint",
     "test:ts": "mocha --config test/mocharc.custom.json src/**/*.test.ts",
     "test:package": "mocha test/package --exit",
     "test": "npm run test:ts && npm run test:integration",
