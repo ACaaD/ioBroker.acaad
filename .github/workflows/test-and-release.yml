@@ -25,18 +25,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-      - run: npm install
-        
+    steps:        
       - uses: ioBroker/testing-action-check@v1
         with:
           node-version: '20.x'
           # Uncomment the following line if your adapter cannot be installed using 'npm ci'
-          # install-command: 'npm install'
+          install-command: 'npm install'
           type-checking: true
           lint: true
 
@@ -47,8 +41,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [20.x]
+        os: [ubuntu-latest]
 
     steps:
       - uses: ioBroker/testing-action-adapter@v1

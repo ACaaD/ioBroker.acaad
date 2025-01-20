@@ -1,6 +1,6 @@
 {
   "name": "iobroker.acaad",
-  "version": "0.0.1-dev.12",
+  "version": "0.0.1",
   "description": "acaad",
   "author": {
     "name": "OlliMartin",
@@ -12,7 +12,7 @@
   },
   "homepage": "https://github.com/OlliMartin/ioBroker.acaad",
   "license": "Apache-2.0",
-  "main": "build/main.js",
+  "main": "lib/main.js",
   "files": [
     "admin{,/!(src)/**}/!(tsconfig|tsconfig.*|.eslintrc).{json,json5}",
     "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,js}",
