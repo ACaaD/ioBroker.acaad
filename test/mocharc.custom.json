@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/mocharc.json",
+  "timeout": 60000,
+  "require": [
+    "tsx",
+    "test/mocha.setup.ts",
+    "source-map-support/register"
+  ],
+  "watch-files": [
+    "src/**/*.test.ts"
+  ]
+}

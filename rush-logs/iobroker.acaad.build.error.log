@@ -1,2 +1,1 @@
-Invoking: heft build --clean && tsc scripts/create-exportable-manifest.ts 
 Error: In file "E:\acaad.ts\ioBroker.acaad\config\heft.json", file referenced in "extends" property ("../node_modules/acaad.toolchain/config/heft.json") cannot be resolved.

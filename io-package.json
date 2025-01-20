@@ -1,0 +1,96 @@
+{
+  "common": {
+    "name": "acaad",
+    "version": "0.0.1",
+    "news": {
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "uk": "Початкова версія",
+        "zh-cn": "首次出版"
+      }
+    },
+    "titleLang": {
+      "en": "Any Computer as a Device",
+      "de": "Jeder Computer als Gerät",
+      "ru": "Любой компьютер как устройство",
+      "pt": "Qualquer computador como dispositivo",
+      "nl": "Elke computer als apparaat",
+      "fr": "N'importe quel ordinateur en tant que périphérique",
+      "it": "Qualsiasi computer come dispositivo",
+      "es": "Cualquier computadora como dispositivo",
+      "pl": "Dowolny komputer jako urządzenie",
+      "uk": "Будь-який комп'ютер як пристрій",
+      "zh-cn": "任何计算机作为设备"
+    },
+    "desc": {
+      "en": "acaad",
+      "de": "acaad",
+      "ru": "акаад",
+      "pt": "acaad",
+      "nl": "acaad",
+      "fr": "acaad",
+      "it": "acaad",
+      "es": "Académico",
+      "pl": "acaad",
+      "uk": "акаад",
+      "zh-cn": "阿卡德"
+    },
+    "authors": [
+      "OlliMartin <dev@ollimart.in>"
+    ],
+    "keywords": [
+      "ioBroker",
+      "template",
+      "Smart Home",
+      "home automation"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "AGPL-3.0"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "acaad.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/OlliMartin/ioBroker.acaad/main/admin/acaad.png",
+    "readme": "https://github.com/OlliMartin/ioBroker.acaad/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 3,
+    "mode": "daemon",
+    "type": "hardware",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "push",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": "7.4.14"
+      }
+    ]
+  },
+  "native": {
+    "targetServices": [
+    ],
+    "auth": {
+      "tokenUrl": "",
+      "clientId": "",
+      "clientSecret": ""
+    }
+  },
+  "objects": [],
+  "instanceObjects": []
+}

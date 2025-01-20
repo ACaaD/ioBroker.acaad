@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "allowImportingTsExtensions": true
+  },
+  "include": [
+    "./**/*.js",
+    "./**/*.ts",
+    "./integrationTests/decs.d.ts"
+  ]
+}
