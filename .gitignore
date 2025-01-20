@@ -24,4 +24,4 @@ admin/i18n/*/flat.txt
 # Rush logs
 **/rush-logs/
 
-!build/**
+!build/
