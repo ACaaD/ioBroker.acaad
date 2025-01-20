@@ -1,1 +1,10 @@
-Error: In file "E:\acaad.ts\ioBroker.acaad\config\heft.json", file referenced in "extends" property ("../node_modules/acaad.toolchain/config/heft.json") cannot be resolved.
+
+  build\services\IoBroker.ConnectedServiceAdapter.js  8.5kb
+  build\services\IoBroker.Context.js                  6.4kb
+  build\main.js                                       3.5kb
+  build\services\IoBroker.Logger.js                   2.2kb
+  build\services\IoBroker.Constants.js                1.2kb
+  ...and 5 more output files...
+
+Done in 9ms
+✔ Type-checking ./tsconfig.build.json succeeded!

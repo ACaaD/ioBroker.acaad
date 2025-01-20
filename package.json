@@ -1,16 +1,31 @@
 {
   "name": "iobroker.acaad",
   "version": "0.0.1-dev.4",
-  "description": "",
-  "main": "index.js",
+  "description": "acaad",
+  "author": {
+    "name": "OlliMartin",
+    "email": "dev@ollimart.in"
+  },
+  "homepage": "https://github.com/OlliMartin/ioBroker.acaad",
+  "license": "AGPL-3.0",
+  "main": "build/main.js",
+  "files": [
+    "admin{,/!(src)/**}/!(tsconfig|tsconfig.*|.eslintrc).{json,json5}",
+    "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,js}",
+    "build/",
+    "www/",
+    "io-package.json",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">= 20"
+  },
   "scripts": {
-    "build": "heft build --clean && tsc scripts/create-exportable-manifest.ts",
-    "pack": "rush publish --pack --include-all",
+    "build": "build-adapter ts",
+    "build2": "heft build --clean && tsc scripts/create-exportable-manifest.ts",
     "test:integration": "mocha --config test/mocharc.custom.json test/integration.ts --exit"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@iobroker/adapter-core": "~3.2.3",
     "@iobroker/types": "~7.0.6",

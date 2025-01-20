@@ -13,7 +13,7 @@ import {
   AcaadError,
   ConfigurationError,
   OutboundStateChangeCallback
-} from 'acaad-core';
+} from '@acaad/core';
 
 import { inject, injectable, singleton } from 'tsyringe';
 import { IoBrokerContext } from './IoBroker.Context';

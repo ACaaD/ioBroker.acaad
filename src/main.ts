@@ -5,7 +5,7 @@ import {
   ComponentManager,
   IConnectedServiceAdapter,
   IConnectedServiceContext
-} from 'acaad-core';
+} from '@acaad/core';
 
 import { IoBrokerContext } from './services/IoBroker.Context';
 import { IoBrokerCsAdapter } from './services/IoBroker.ConnectedServiceAdapter';
