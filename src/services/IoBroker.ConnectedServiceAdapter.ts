@@ -173,21 +173,20 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
     const componentDescriptor = this.getComponentDescriptorByComponent(component);
 
     try {
-      const { id: deviceId } = await this._ioBrokerContext.extendObjectAsync(
-        componentDescriptor.toIdentifier(),
-        {
-          type: 'channel',
-          common: {
-            name: component.type
-          }
+      const deviceId = componentDescriptor.toIdentifier();
+
+      await this._ioBrokerContext.extendObjectAsync(deviceId, {
+        type: 'channel',
+        common: {
+          name: component.type
         }
-      );
+      });
 
       for (const { _id: idSuffix, ...ioBrokerObject } of this.handleComponent(component)) {
         const sId = `${deviceId}.${idSuffix}`;
         this._logger.logTrace(`Extending object with identifier: '${sId}'.`);
-        const { id: stateId } = await this._ioBrokerContext.extendObjectAsync(sId, ioBrokerObject);
-        await this._ioBrokerContext.addObjectAsync(stateId, component);
+        await this._ioBrokerContext.extendObjectAsync(sId, ioBrokerObject);
+        await this._ioBrokerContext.addObjectAsync(sId, component);
       }
     } catch (err) {
       this._logger.logError(undefined, undefined, (err as any).toString());
