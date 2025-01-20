@@ -33,6 +33,7 @@ jobs:
           install-command: 'npm install'
           package-cache: false
           type-checking: true
+          test-command: 'npm run test:ts'
           lint: true
 
   # Runs adapter tests on all supported node versions and OSes
