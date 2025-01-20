@@ -1,6 +1,6 @@
 {
   "name": "iobroker.acaad",
-  "version": "0.0.1-dev.3",
+  "version": "0.0.1-dev.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,10 +16,10 @@
     "@iobroker/types": "~7.0.6",
     "tsyringe": "~4.8.0",
     "effect": "~3.12.5",
-    "@acaad/core": "~0.0.1-dev.3"
+    "@acaad/core": "*"
   },
   "devDependencies": {
-    "@acaad/toolchain": "~0.0.1-dev.3",
+    "@acaad/toolchain": "*",
     "@pnpm/exportable-manifest": "~1000.0.4",
     "@tsconfig/node20": "~20.1.4",
     "typescript": "~5.7.3",
