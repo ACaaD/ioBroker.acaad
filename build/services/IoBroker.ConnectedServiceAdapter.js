@@ -64,6 +64,9 @@ let IoBrokerCsAdapter = class {
   }
   getConnectedServersAsync() {
     const hosts = this._ioBrokerContext.getConfiguredServers();
+    this._logger.logInformation(
+      `Found ${hosts.length} configured servers: ${hosts.map((h) => `${h.friendlyName} (API=${h.restBase()}, SR=${h.signalrBase()})`).join(", ")}`
+    );
     return hosts.length > 0 ? import_effect.Effect.succeed(hosts) : import_effect.Effect.fail(new import_core.ConfigurationError("No hosts configured. Stopping."));
   }
   getDevicePrefix(host) {
