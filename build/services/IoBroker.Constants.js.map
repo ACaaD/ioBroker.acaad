@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/services/IoBroker.Constants.ts"],
+  "sourcesContent": ["export const Actions = {\n  Sync: 'Sync',\n  Trigger: 'Trigger',\n  Switch: 'Switch'\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAO,MAAM,UAAU;AAAA,EACrB,MAAM;AAAA,EACN,SAAS;AAAA,EACT,QAAQ;AACV;",
+  "names": []
+}
