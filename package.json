@@ -38,11 +38,11 @@
     "@iobroker/types": "~7.0.6",
     "tsyringe": "~4.8.0",
     "effect": "~3.12.5",
-    "@acaad/core": ">=0.0.1-dev.12",
+    "@acaad/core": "^0.0.1",
     "reflect-metadata": "~0.2.2"
   },
   "devDependencies": {
-    "@acaad/toolchain": ">=0.0.1-dev.12",
+    "@acaad/toolchain": "^0.0.1",
     "@pnpm/exportable-manifest": "~1000.0.4",
     "@tsconfig/node20": "~20.1.4",
     "typescript": "~5.6.0",
