@@ -69,7 +69,8 @@
     "@pnpm/read-project-manifest": "~1000.0.3",
     "@types/mocha": "~10.0.10",
     "tsx": "~4.19.2",
-    "@rushstack/heft-lint-plugin": "~0.5.12"
+    "@rushstack/heft-lint-plugin": "~0.5.12",
+    "@rushstack/heft-jest-plugin": "~0.14.3"
   },
   "keywords": [
     "ioBroker",
