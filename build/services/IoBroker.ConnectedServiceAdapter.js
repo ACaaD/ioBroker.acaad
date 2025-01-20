@@ -157,28 +157,24 @@ let IoBrokerCsAdapter = class {
   }
   async createComponentModelAsync(component) {
     const componentDescriptor = this.getComponentDescriptorByComponent(component);
-    try {
-      const deviceId = componentDescriptor.toIdentifier();
-      await this._ioBrokerContext.extendObjectAsync(deviceId, {
-        type: "channel",
-        common: {
-          name: component.type
-        }
-      });
-      for (const { _id: idSuffix, ...ioBrokerObject } of this.handleComponent(component)) {
+    const deviceId = componentDescriptor.toIdentifier();
+    await this._ioBrokerContext.extendObjectAsync(deviceId, {
+      type: "channel",
+      common: {
+        name: component.type
+      }
+    });
+    await Promise.all(
+      this.handleComponent(component).map(async ({ _id: idSuffix, ...ioBrokerObject }) => {
         const sId = `${deviceId}.${idSuffix}`;
         this._logger.logTrace(`Extending object with identifier: '${sId}'.`);
         await this._ioBrokerContext.extendObjectAsync(sId, ioBrokerObject);
-        await this._ioBrokerContext.addObjectAsync(sId, component);
-      }
-    } catch (err) {
-      this._logger.logError(void 0, void 0, err.toString());
-      this._logger.logError(
-        void 0,
-        err,
-        `Failed to create component model for ${component.name}.`
-      );
-    }
+        await this._ioBrokerContext.addObjectAsync(
+          `${this._ioBrokerContext.getNamespace()}.${sId}`,
+          component
+        );
+      })
+    );
   }
   async registerStateChangeCallbackAsync(cb) {
     await this._ioBrokerContext.registerStateChangeCallbackAsync(cb);
