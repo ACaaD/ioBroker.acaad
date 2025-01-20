@@ -10,11 +10,12 @@
 
 **Tests:** ![Test and Release](https://github.com/OlliMartin/ioBroker.acaad/workflows/Test%20and%20Release/badge.svg)
 
-## acaad adapter for ioBroker
+## ACaaD adapter for ioBroker
 
-Describe your project here
+This is an ioBroker adapter for `Any Computer as a Device` (ACaaD). It allows you to use your computer as a device in ioBroker, specifying custom devices directly on any connected pc.
 
 ## Developer manual
+
 This section is intended for the developer. It can be deleted later.
 
 ### DISCLAIMER
