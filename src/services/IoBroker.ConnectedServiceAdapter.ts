@@ -57,7 +57,7 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
   }
 
   getAllowedConcurrency(): number {
-    return 2;
+    return 4;
   }
 
   getConnectedServersAsync(): Effect.Effect<AcaadHost[], AcaadError> {

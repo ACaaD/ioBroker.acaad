@@ -22,10 +22,15 @@
   },
   "scripts": {
     "build": "build-adapter ts",
-    "build2": "heft build --clean && tsc scripts/create-exportable-manifest.ts",
+    "build2": "heft build --clean",
     "test:integration": "mocha --config test/mocharc.custom.json test/integration.ts --exit"
   },
-  "keywords": [],
+  "keywords": [
+    "ioBroker",
+    "template",
+    "Smart Home",
+    "home automation"
+  ],
   "dependencies": {
     "@iobroker/adapter-core": "~3.2.3",
     "@iobroker/types": "~7.0.6",
