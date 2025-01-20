@@ -6,8 +6,12 @@
     "name": "OlliMartin",
     "email": "dev@ollimart.in"
   },
+  "repository": {
+    "url": "https://github.com/OlliMartin/ioBroker.acaad.git",
+    "type": "git"
+  },
   "homepage": "https://github.com/OlliMartin/ioBroker.acaad",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "main": "build/main.js",
   "files": [
     "admin{,/!(src)/**}/!(tsconfig|tsconfig.*|.eslintrc).{json,json5}",
@@ -25,22 +29,16 @@
     "build2": "heft build --clean",
     "test:integration": "mocha --config test/mocharc.custom.json test/integration.ts --exit"
   },
-  "keywords": [
-    "ioBroker",
-    "template",
-    "Smart Home",
-    "home automation"
-  ],
   "dependencies": {
     "@iobroker/adapter-core": "~3.2.3",
     "@iobroker/types": "~7.0.6",
     "tsyringe": "~4.8.0",
     "effect": "~3.12.5",
-    "@acaad/core": "*",
+    "@acaad/core": "+0.0.1",
     "reflect-metadata": "~0.2.2"
   },
   "devDependencies": {
-    "@acaad/toolchain": "*",
+    "@acaad/toolchain": "+0.0.1",
     "@pnpm/exportable-manifest": "~1000.0.4",
     "@tsconfig/node20": "~20.1.4",
     "typescript": "~5.6.0",
@@ -67,5 +65,14 @@
     "@pnpm/read-project-manifest": "~1000.0.3",
     "@types/mocha": "~10.0.10",
     "tsx": "~4.19.2"
-  }
+  },
+  "keywords": [
+    "ioBroker",
+    "windows control",
+    "linux control",
+    "Smart Home",
+    "home automation",
+    "acaad",
+    "any computer as a device"
+  ]
 }

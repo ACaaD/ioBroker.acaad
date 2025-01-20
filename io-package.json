@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "acaad",
-    "version": "0.0.1",
+    "version": "0.0.1-dev.12",
     "news": {
       "0.0.1": {
         "en": "initial release",
@@ -47,14 +47,16 @@
       "OlliMartin <dev@ollimart.in>"
     ],
     "keywords": [
-      "ioBroker",
-      "template",
+      "windows control",
+      "linux control",
       "Smart Home",
-      "home automation"
+      "home automation",
+      "acaad",
+      "any computer as a device"
     ],
     "licenseInformation": {
       "type": "free",
-      "license": "AGPL-3.0"
+      "license": "Apache-2.0"
     },
     "platform": "Javascript/Node.js",
     "icon": "acaad.png",
@@ -78,7 +80,7 @@
     ],
     "globalDependencies": [
       {
-        "admin": "7.4.14"
+        "admin": ">=7.4.14"
       }
     ]
   },
