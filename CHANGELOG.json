@@ -1,0 +1,17 @@
+{
+  "name": "iobroker.acaad",
+  "entries": [
+    {
+      "version": "0.0.1",
+      "tag": "iobroker.acaad_v0.0.1",
+      "date": "Mon, 20 Jan 2025 16:14:52 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Import new libs"
+          }
+        ]
+      }
+    }
+  ]
+}
