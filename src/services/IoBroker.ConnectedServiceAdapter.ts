@@ -60,16 +60,14 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
     return 4;
   }
 
-  getConnectedServersAsync(): Effect.Effect<AcaadHost[], AcaadError> {
+  async getConnectedServersAsync(): Promise<AcaadHost[]> {
     const hosts = this._ioBrokerContext.getConfiguredServers();
 
     this._logger.logInformation(
       `Found ${hosts.length} configured servers: ${hosts.map((h) => `${h.friendlyName} (API=${h.restBase()}, SR=${h.signalrBase()})`).join(', ')}`
     );
 
-    return hosts.length > 0
-      ? Effect.succeed(hosts)
-      : Effect.fail(new ConfigurationError('No hosts configured. Stopping.'));
+    return hosts;
   }
 
   getDevicePrefix(host: AcaadHost): string {

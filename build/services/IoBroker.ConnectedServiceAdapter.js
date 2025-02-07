@@ -34,7 +34,6 @@ module.exports = __toCommonJS(IoBroker_ConnectedServiceAdapter_exports);
 var import_core = require("@acaad/core");
 var import_tsyringe = require("tsyringe");
 var import_IoBroker = require("./IoBroker.Context");
-var import_effect = require("effect");
 var import_IoBroker2 = require("./IoBroker.Constants");
 const STATE_SUFFIXES = {
   ACAAD_VERSION: "acaadVersion",
@@ -62,12 +61,12 @@ let IoBrokerCsAdapter = class {
   getAllowedConcurrency() {
     return 4;
   }
-  getConnectedServersAsync() {
+  async getConnectedServersAsync() {
     const hosts = this._ioBrokerContext.getConfiguredServers();
     this._logger.logInformation(
       `Found ${hosts.length} configured servers: ${hosts.map((h) => `${h.friendlyName} (API=${h.restBase()}, SR=${h.signalrBase()})`).join(", ")}`
     );
-    return hosts.length > 0 ? import_effect.Effect.succeed(hosts) : import_effect.Effect.fail(new import_core.ConfigurationError("No hosts configured. Stopping."));
+    return hosts;
   }
   getDevicePrefix(host) {
     return this._ioBrokerContext.escapeComponentName(host.friendlyName);
