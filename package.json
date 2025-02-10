@@ -37,7 +37,7 @@
     "@iobroker/adapter-core": "~3.2.3",
     "@iobroker/types": "~7.0.6",
     "tsyringe": "~4.8.0",
-    "effect": "~3.12.9",
+    "effect": "~3.12.10",
     "reflect-metadata": "~0.2.2",
     "@acaad/core": "workspace:*"
   },
@@ -70,7 +70,7 @@
     "@types/mocha": "~10.0.10",
     "tsx": "~4.19.2",
     "@rushstack/heft-lint-plugin": "~0.5.14",
-    "@rushstack/heft-jest-plugin": "~0.14.5"
+    "@rushstack/heft-jest-plugin": "~0.14.6"
   },
   "keywords": [
     "ioBroker",
