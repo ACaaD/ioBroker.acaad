@@ -39,7 +39,8 @@
     "tsyringe": "~4.8.0",
     "effect": "~3.12.10",
     "reflect-metadata": "~0.2.2",
-    "@acaad/core": "workspace:*"
+    "@acaad/core": "workspace:*",
+    "@acaad/abstractions": "workspace:*"
   },
   "devDependencies": {
     "@acaad/toolchain": "workspace:*",

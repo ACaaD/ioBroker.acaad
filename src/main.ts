@@ -2,12 +2,10 @@ import 'reflect-metadata';
 
 import * as utils from '@iobroker/adapter-core';
 import { DependencyContainer } from 'tsyringe';
-import {
-  FrameworkContainer,
-  ComponentManager,
-  IConnectedServiceAdapter,
-  IConnectedServiceContext
-} from '@acaad/core';
+
+import { IConnectedServiceAdapter, IConnectedServiceContext } from '@acaad/abstractions';
+
+import { FrameworkContainer, ComponentManager } from '@acaad/core';
 
 import { IoBrokerContext } from './services/IoBroker.Context';
 import { IoBrokerCsAdapter } from './services/IoBroker.ConnectedServiceAdapter';

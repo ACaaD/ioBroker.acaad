@@ -5,8 +5,9 @@ import {
   ChangeType,
   AcaadAuthentication,
   AcaadHost,
-  Component, ComponentDescriptor
-} from '@acaad/core';
+  Component,
+  ComponentDescriptor
+} from '@acaad/abstractions';
 
 import IoBrokerLogger from './IoBroker.Logger';
 import { injectable } from 'tsyringe';
