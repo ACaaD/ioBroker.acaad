@@ -49,12 +49,12 @@ let IoBrokerCsAdapter = class {
     this._logger = logger;
   }
   async onServerConnectedAsync(server) {
-    const device = this.getDevicePrefix(server);
+    const device = this._ioBrokerContext.getDevicePrefix(server);
     const connectedState = `${device}.${STATE_SUFFIXES.CONNECTED}`;
     await this._ioBrokerContext.setStateAsync(connectedState, { val: true });
   }
   async onServerDisconnectedAsync(server) {
-    const device = this.getDevicePrefix(server);
+    const device = this._ioBrokerContext.getDevicePrefix(server);
     const connectedState = `${device}.${STATE_SUFFIXES.CONNECTED}`;
     await this._ioBrokerContext.setStateAsync(connectedState, { val: false });
   }
@@ -68,13 +68,8 @@ let IoBrokerCsAdapter = class {
     );
     return hosts;
   }
-  getDevicePrefix(host) {
-    return this._ioBrokerContext.escapeComponentName(host.friendlyName);
-  }
   getComponentDescriptorByComponent(component) {
-    const deviceName = `${this.getDevicePrefix(component.serverMetadata.host)}.${component.name}`;
-    const escapedName = this._ioBrokerContext.escapeComponentName(deviceName);
-    return new import_core.ComponentDescriptor(escapedName);
+    return this._ioBrokerContext.getComponentDescriptorByComponent(component);
   }
   transformUnitOfMeasure(uom) {
     throw new Error("Method not implemented.");
@@ -145,7 +140,7 @@ let IoBrokerCsAdapter = class {
     );
   }
   async createServerModelAsync(server) {
-    const deviceId = this.getDevicePrefix(server.host);
+    const deviceId = this._ioBrokerContext.getDevicePrefix(server.host);
     await this._ioBrokerContext.extendObjectAsync(deviceId, {
       type: "device",
       common: {

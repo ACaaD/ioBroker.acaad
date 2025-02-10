@@ -41,14 +41,14 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
   }
 
   async onServerConnectedAsync(server: AcaadHost): Promise<void> {
-    const device = this.getDevicePrefix(server);
+    const device = this._ioBrokerContext.getDevicePrefix(server);
     const connectedState = `${device}.${STATE_SUFFIXES.CONNECTED}`;
 
     await this._ioBrokerContext.setStateAsync(connectedState, { val: true });
   }
 
   async onServerDisconnectedAsync(server: AcaadHost): Promise<void> {
-    const device = this.getDevicePrefix(server);
+    const device = this._ioBrokerContext.getDevicePrefix(server);
     const connectedState = `${device}.${STATE_SUFFIXES.CONNECTED}`;
 
     await this._ioBrokerContext.setStateAsync(connectedState, { val: false });
@@ -68,15 +68,8 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
     return hosts;
   }
 
-  getDevicePrefix(host: AcaadHost): string {
-    return this._ioBrokerContext.escapeComponentName(host.friendlyName);
-  }
-
   getComponentDescriptorByComponent(component: Component): ComponentDescriptor {
-    const deviceName = `${this.getDevicePrefix(component.serverMetadata.host)}.${component.name}`;
-    const escapedName = this._ioBrokerContext.escapeComponentName(deviceName);
-
-    return new ComponentDescriptor(escapedName);
+    return this._ioBrokerContext.getComponentDescriptorByComponent(component);
   }
 
   transformUnitOfMeasure(uom: AcaadUnitOfMeasure): unknown {
@@ -154,7 +147,7 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
   }
 
   async createServerModelAsync(server: AcaadServerMetadata): Promise<void> {
-    const deviceId = this.getDevicePrefix(server.host);
+    const deviceId = this._ioBrokerContext.getDevicePrefix(server.host);
 
     await this._ioBrokerContext.extendObjectAsync(deviceId, {
       type: 'device',

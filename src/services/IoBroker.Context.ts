@@ -5,7 +5,7 @@ import {
   ChangeType,
   AcaadAuthentication,
   AcaadHost,
-  Component
+  Component, ComponentDescriptor
 } from '@acaad/core';
 
 import IoBrokerLogger from './IoBroker.Logger';
@@ -116,11 +116,24 @@ export class IoBrokerContext implements IConnectedServiceContext {
       ? Option.none()
       : Option.some(state?.val);
 
-    const success = await this._outboundStateChangeCallback(triggeredForComponent, changeType, triggerVal);
+    const host = triggeredForComponent.serverMetadata.host;
+    const descriptor = this.getComponentDescriptorByComponent(triggeredForComponent);
+    const success = await this._outboundStateChangeCallback(host, descriptor, changeType, triggerVal);
 
     if (success) {
       await this.setStateAsync(id, { ack: true });
     }
+  }
+
+  getDevicePrefix(host: AcaadHost): string {
+    return this.escapeComponentName(host.friendlyName);
+  }
+
+  getComponentDescriptorByComponent(component: Component): ComponentDescriptor {
+    const deviceName = `${this.getDevicePrefix(component.serverMetadata.host)}.${component.name}`;
+    const escapedName = this.escapeComponentName(deviceName);
+
+    return new ComponentDescriptor(escapedName);
   }
 
   // TODO: Temporary

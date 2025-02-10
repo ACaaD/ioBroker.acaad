@@ -119,10 +119,20 @@ let IoBrokerContext = class {
       return;
     }
     const triggerVal = this.isNullOrUndefined(state == null ? void 0 : state.val) ? import_effect.Option.none() : import_effect.Option.some(state == null ? void 0 : state.val);
-    const success = await this._outboundStateChangeCallback(triggeredForComponent, changeType, triggerVal);
+    const host = triggeredForComponent.serverMetadata.host;
+    const descriptor = this.getComponentDescriptorByComponent(triggeredForComponent);
+    const success = await this._outboundStateChangeCallback(host, descriptor, changeType, triggerVal);
     if (success) {
       await this.setStateAsync(id, { ack: true });
     }
+  }
+  getDevicePrefix(host) {
+    return this.escapeComponentName(host.friendlyName);
+  }
+  getComponentDescriptorByComponent(component) {
+    const deviceName = `${this.getDevicePrefix(component.serverMetadata.host)}.${component.name}`;
+    const escapedName = this.escapeComponentName(deviceName);
+    return new import_core.ComponentDescriptor(escapedName);
   }
   // TODO: Temporary
   isNullOrUndefined(val) {
