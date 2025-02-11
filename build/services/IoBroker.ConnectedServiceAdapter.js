@@ -31,7 +31,7 @@ __export(IoBroker_ConnectedServiceAdapter_exports, {
   IoBrokerCsAdapter: () => IoBrokerCsAdapter
 });
 module.exports = __toCommonJS(IoBroker_ConnectedServiceAdapter_exports);
-var import_abstractions = require("@acaad/abstractions");
+var import_src = require("@acaad/abstractions/src");
 var import_core = require("@acaad/core");
 var import_tsyringe = require("tsyringe");
 var import_IoBroker = require("./IoBroker.Context");
@@ -179,7 +179,7 @@ let IoBrokerCsAdapter = class {
   }
   handleComponent(component) {
     switch (component.type) {
-      case import_abstractions.ComponentType.Button:
+      case import_src.ComponentType.Button:
         return [
           {
             _id: import_IoBroker2.Actions.Trigger,
@@ -192,7 +192,7 @@ let IoBrokerCsAdapter = class {
             }
           }
         ];
-      case import_abstractions.ComponentType.Sensor:
+      case import_src.ComponentType.Sensor:
         return [
           {
             _id: "Value",
@@ -217,7 +217,7 @@ let IoBrokerCsAdapter = class {
             }
           }
         ];
-      case import_abstractions.ComponentType.Switch:
+      case import_src.ComponentType.Switch:
         return [
           {
             _id: import_IoBroker2.Actions.Switch,

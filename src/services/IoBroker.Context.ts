@@ -7,7 +7,7 @@ import {
   AcaadHost,
   Component,
   ComponentDescriptor
-} from '@acaad/abstractions';
+} from '@acaad/abstractions/src';
 
 import IoBrokerLogger from './IoBroker.Logger';
 import { injectable } from 'tsyringe';

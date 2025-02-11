@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import * as utils from '@iobroker/adapter-core';
 import { DependencyContainer } from 'tsyringe';
 
-import { IConnectedServiceAdapter, IConnectedServiceContext } from '@acaad/abstractions';
+import { IConnectedServiceAdapter, IConnectedServiceContext } from '@acaad/abstractions/src';
 
 import { FrameworkContainer, ComponentManager } from '@acaad/core';
 

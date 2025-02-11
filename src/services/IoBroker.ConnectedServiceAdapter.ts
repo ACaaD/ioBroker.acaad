@@ -12,7 +12,7 @@ import {
   AcaadError,
   ConfigurationError,
   OutboundStateChangeCallback
-} from '@acaad/abstractions';
+} from '@acaad/abstractions/src';
 
 import { DependencyInjectionTokens } from '@acaad/core';
 

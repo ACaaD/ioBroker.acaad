@@ -1,4 +1,4 @@
-import { ICsLogger } from '@acaad/abstractions';
+import { ICsLogger } from '@acaad/abstractions/src';
 import { Cause } from 'effect';
 
 class IoBrokerLogger implements ICsLogger {
