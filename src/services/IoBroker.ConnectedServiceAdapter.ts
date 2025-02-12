@@ -11,7 +11,10 @@ import {
   AcaadUnitOfMeasure,
   AcaadError,
   ConfigurationError,
-  OutboundStateChangeCallback
+  OutboundStateChangeCallback,
+  AcaadUnhandledEventReceivedEvent,
+  ComponentCommandOutcomeEvent,
+  ConnectedServiceFunction
 } from '@acaad/abstractions/src';
 
 import { DependencyInjectionTokens } from '@acaad/core';
@@ -41,14 +44,22 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
     this._logger = logger;
   }
 
-  async onServerConnectedAsync(server: AcaadHost): Promise<void> {
+  mapServiceError(functionName: ConnectedServiceFunction, error: unknown): AcaadError {
+    // TODO: Make fatal (IoBroker should always terminate)
+    return new AcaadError(
+      error,
+      `An unhandled error occurred processing function '${functionName}'. TODO: Make this error fatal.`
+    );
+  }
+
+  async onServerConnectedAsync(server: AcaadHost, as: AbortSignal): Promise<void> {
     const device = this._ioBrokerContext.getDevicePrefix(server);
     const connectedState = `${device}.${STATE_SUFFIXES.CONNECTED}`;
 
     await this._ioBrokerContext.setStateAsync(connectedState, { val: true });
   }
 
-  async onServerDisconnectedAsync(server: AcaadHost): Promise<void> {
+  async onServerDisconnectedAsync(server: AcaadHost, as: AbortSignal): Promise<void> {
     const device = this._ioBrokerContext.getDevicePrefix(server);
     const connectedState = `${device}.${STATE_SUFFIXES.CONNECTED}`;
 
@@ -59,7 +70,7 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
     return 4;
   }
 
-  async getConnectedServersAsync(): Promise<AcaadHost[]> {
+  async getConnectedServersAsync(as: AbortSignal): Promise<AcaadHost[]> {
     const hosts = this._ioBrokerContext.getConfiguredServers();
 
     this._logger.logInformation(
@@ -77,7 +88,7 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
     throw new Error('Method not implemented.');
   }
 
-  async updateComponentStateAsync(cd: ComponentDescriptor, obj: unknown): Promise<void> {
+  async updateComponentStateAsync(cd: ComponentDescriptor, obj: unknown, as: AbortSignal): Promise<void> {
     // Identifier can be discovered through cd.type inspection? Does this make sense?
     const stateId = `${cd.toIdentifier()}.Value`;
 
@@ -147,7 +158,7 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
     );
   }
 
-  async createServerModelAsync(server: AcaadServerMetadata): Promise<void> {
+  async createServerModelAsync(server: AcaadServerMetadata, as: AbortSignal): Promise<void> {
     const deviceId = this._ioBrokerContext.getDevicePrefix(server.host);
 
     await this._ioBrokerContext.extendObjectAsync(deviceId, {
@@ -163,7 +174,7 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
     await this.createServerMetadataAsync(deviceId, server);
   }
 
-  async createComponentModelAsync(component: Component): Promise<void> {
+  async createComponentModelAsync(component: Component, as: AbortSignal): Promise<void> {
     const componentDescriptor = this.getComponentDescriptorByComponent(component);
 
     const deviceId = componentDescriptor.toIdentifier();
@@ -189,7 +200,7 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
     );
   }
 
-  async registerStateChangeCallbackAsync(cb: OutboundStateChangeCallback): Promise<void> {
+  async registerStateChangeCallbackAsync(cb: OutboundStateChangeCallback, as: AbortSignal): Promise<void> {
     await this._ioBrokerContext.registerStateChangeCallbackAsync(cb);
   }
 

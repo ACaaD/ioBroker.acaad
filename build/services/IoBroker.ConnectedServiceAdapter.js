@@ -49,12 +49,18 @@ let IoBrokerCsAdapter = class {
     this._ioBrokerContext = ioBrokerContext;
     this._logger = logger;
   }
-  async onServerConnectedAsync(server) {
+  mapServiceError(functionName, error) {
+    return new import_src.AcaadError(
+      error,
+      `An unhandled error occurred processing function '${functionName}'. TODO: Make this error fatal.`
+    );
+  }
+  async onServerConnectedAsync(server, as) {
     const device = this._ioBrokerContext.getDevicePrefix(server);
     const connectedState = `${device}.${STATE_SUFFIXES.CONNECTED}`;
     await this._ioBrokerContext.setStateAsync(connectedState, { val: true });
   }
-  async onServerDisconnectedAsync(server) {
+  async onServerDisconnectedAsync(server, as) {
     const device = this._ioBrokerContext.getDevicePrefix(server);
     const connectedState = `${device}.${STATE_SUFFIXES.CONNECTED}`;
     await this._ioBrokerContext.setStateAsync(connectedState, { val: false });
@@ -62,7 +68,7 @@ let IoBrokerCsAdapter = class {
   getAllowedConcurrency() {
     return 4;
   }
-  async getConnectedServersAsync() {
+  async getConnectedServersAsync(as) {
     const hosts = this._ioBrokerContext.getConfiguredServers();
     this._logger.logInformation(
       `Found ${hosts.length} configured servers: ${hosts.map((h) => `${h.friendlyName} (API=${h.restBase()}, SR=${h.signalrBase()})`).join(", ")}`
@@ -75,7 +81,7 @@ let IoBrokerCsAdapter = class {
   transformUnitOfMeasure(uom) {
     throw new Error("Method not implemented.");
   }
-  async updateComponentStateAsync(cd, obj) {
+  async updateComponentStateAsync(cd, obj, as) {
     var _a;
     const stateId = `${cd.toIdentifier()}.Value`;
     await this._ioBrokerContext.setStateAsync(stateId, {
@@ -140,7 +146,7 @@ let IoBrokerCsAdapter = class {
       )
     );
   }
-  async createServerModelAsync(server) {
+  async createServerModelAsync(server, as) {
     const deviceId = this._ioBrokerContext.getDevicePrefix(server.host);
     await this._ioBrokerContext.extendObjectAsync(deviceId, {
       type: "device",
@@ -153,7 +159,7 @@ let IoBrokerCsAdapter = class {
     });
     await this.createServerMetadataAsync(deviceId, server);
   }
-  async createComponentModelAsync(component) {
+  async createComponentModelAsync(component, as) {
     const componentDescriptor = this.getComponentDescriptorByComponent(component);
     const deviceId = componentDescriptor.toIdentifier();
     await this._ioBrokerContext.extendObjectAsync(deviceId, {
@@ -174,7 +180,7 @@ let IoBrokerCsAdapter = class {
       })
     );
   }
-  async registerStateChangeCallbackAsync(cb) {
+  async registerStateChangeCallbackAsync(cb, as) {
     await this._ioBrokerContext.registerStateChangeCallbackAsync(cb);
   }
   handleComponent(component) {
