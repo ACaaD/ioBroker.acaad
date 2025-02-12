@@ -7,10 +7,10 @@
     "email": "dev@ollimart.in"
   },
   "repository": {
-    "url": "https://github.com/OlliMartin/ioBroker.acaad.git",
+    "url": "https://github.com/ACaaD/ioBroker.acaad.git",
     "type": "git"
   },
-  "homepage": "https://github.com/OlliMartin/ioBroker.acaad",
+  "homepage": "https://github.com/ACaaD/ioBroker.acaad",
   "license": "Apache-2.0",
   "main": "build/main.js",
   "files": [
