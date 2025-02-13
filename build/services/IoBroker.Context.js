@@ -84,7 +84,6 @@ let IoBrokerContext = class {
   getNamespace() {
     return this._adapter.namespace;
   }
-  // TODO: Use preserver
   async extendObjectAsync(objectIdentifier, partialObject) {
     return await this._adapter.extendObject(objectIdentifier, partialObject, {
       preserve: { common: ["name"] }

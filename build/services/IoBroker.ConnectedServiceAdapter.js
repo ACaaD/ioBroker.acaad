@@ -49,11 +49,16 @@ let IoBrokerCsAdapter = class {
     this._ioBrokerContext = ioBrokerContext;
     this._logger = logger;
   }
+  /*
+    Fatal errors (AcaadFatalError), or its subclasses, result in the graceful termination of the ACaaD core framework. 
+    It has been confirmed that the only 'unexpected' errors an ioBroker adapter may encounter 
+      are related to the database connection going down (or similar). 
+    These errors are neither retryable nor recoverable, as the adapter core will shut down the adapter regardless. 
+    Therefore, a sophisticated error handler is unnecessary in the case of this ioBroker adapter.
+  */
   mapServiceError(functionName, error) {
-    return new import_src.AcaadError(
-      error,
-      `An unhandled error occurred processing function '${functionName}'. TODO: Make this error fatal.`
-    );
+    const msg = `An unhandled error occurred processing function '${functionName}'.`;
+    return new import_src.AcaadFatalError(error, msg);
   }
   async onServerConnectedAsync(server, as) {
     const device = this._ioBrokerContext.getDevicePrefix(server);
@@ -205,7 +210,6 @@ let IoBrokerCsAdapter = class {
             type: "state",
             common: {
               type: "string",
-              // TODO -> Only user knows
               role: "state",
               read: true,
               write: false

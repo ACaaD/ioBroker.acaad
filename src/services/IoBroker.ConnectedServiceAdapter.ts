@@ -1,20 +1,18 @@
 import {
-  IConnectedServiceAdapter,
-  ICsLogger,
+  AcaadError,
+  AcaadFatalError,
   AcaadHost,
-  Component,
-  ComponentType,
-  ComponentDescriptor,
-  ComponentTypes,
   AcaadOutcome,
   AcaadServerMetadata,
   AcaadUnitOfMeasure,
-  AcaadError,
-  ConfigurationError,
-  OutboundStateChangeCallback,
-  AcaadUnhandledEventReceivedEvent,
-  ComponentCommandOutcomeEvent,
-  ConnectedServiceFunction
+  Component,
+  ComponentDescriptor,
+  ComponentType,
+  ComponentTypes,
+  ConnectedServiceFunction,
+  IConnectedServiceAdapter,
+  ICsLogger,
+  OutboundStateChangeCallback
 } from '@acaad/abstractions/src';
 
 import { DependencyInjectionTokens } from '@acaad/core';
@@ -22,6 +20,7 @@ import { DependencyInjectionTokens } from '@acaad/core';
 import { inject, injectable, singleton } from 'tsyringe';
 import { IoBrokerContext } from './IoBroker.Context';
 import { Actions } from './IoBroker.Constants';
+import { Cause } from 'effect';
 
 const STATE_SUFFIXES = {
   ACAAD_VERSION: 'acaadVersion',
@@ -44,12 +43,16 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
     this._logger = logger;
   }
 
+  /*
+    Fatal errors (AcaadFatalError), or its subclasses, result in the graceful termination of the ACaaD core framework. 
+    It has been confirmed that the only 'unexpected' errors an ioBroker adapter may encounter 
+      are related to the database connection going down (or similar). 
+    These errors are neither retryable nor recoverable, as the adapter core will shut down the adapter regardless. 
+    Therefore, a sophisticated error handler is unnecessary in the case of this ioBroker adapter.
+  */
   mapServiceError(functionName: ConnectedServiceFunction, error: unknown): AcaadError {
-    // TODO: Make fatal (IoBroker should always terminate)
-    return new AcaadError(
-      error,
-      `An unhandled error occurred processing function '${functionName}'. TODO: Make this error fatal.`
-    );
+    const msg = `An unhandled error occurred processing function '${functionName}'.`;
+    return new AcaadFatalError(error, msg);
   }
 
   async onServerConnectedAsync(server: AcaadHost, as: AbortSignal): Promise<void> {
@@ -92,6 +95,7 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
     // Identifier can be discovered through cd.type inspection? Does this make sense?
     const stateId = `${cd.toIdentifier()}.Value`;
 
+    // TODO: Hard-cast seems weird. Check why this is here in the first place.
     await this._ioBrokerContext.setStateAsync(stateId, {
       val: (obj as AcaadOutcome)?.outcomeRaw ?? ''
     });
@@ -225,7 +229,7 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
             _id: 'Value',
             type: 'state',
             common: {
-              type: 'string', // TODO -> Only user knows
+              type: 'string',
               role: 'state',
               read: true,
               write: false

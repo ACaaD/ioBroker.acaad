@@ -63,7 +63,6 @@ export class IoBrokerContext implements IConnectedServiceContext {
     return this._adapter.namespace;
   }
 
-  // TODO: Use preserver
   async extendObjectAsync(
     objectIdentifier: string,
     partialObject: ioBroker.PartialObject

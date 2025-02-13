@@ -70,7 +70,6 @@ class Acaad extends utils.Adapter {
   private async onUnload(callback: () => void): Promise<void> {
     try {
       // TODO: Add AbortController+Signal to limit shutdown duration, if necessary force-stop.
-      // Alternatively, fork (?) an effect and race it as timeout.
 
       await pipe(
         this._componentManager,
