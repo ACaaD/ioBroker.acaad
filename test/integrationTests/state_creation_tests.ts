@@ -18,7 +18,7 @@ function stateCreationTests(testContext: TestContext) {
     const disposables: (() => void)[] = [];
     const asyncDisposables: (() => Promise<void>)[] = [];
 
-    const createMockServer = async (selectedCollection = 'positive') => {
+    const createMockServer = async (selectedCollection?: string) => {
       const nextFreePort = await portfinder.getPortPromise({ port: 8_000 });
       const adminPort = await portfinder.getPortPromise({ port: 20_000 });
 
