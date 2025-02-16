@@ -49,6 +49,9 @@ let IoBrokerCsAdapter = class {
     this._ioBrokerContext = ioBrokerContext;
     this._logger = logger;
   }
+  shouldSyncMetadataOnServerConnect() {
+    return true;
+  }
   /*
     Fatal errors (AcaadFatalError), or its subclasses, result in the graceful termination of the ACaaD core framework. 
     It has been confirmed that the only 'unexpected' errors an ioBroker adapter may encounter 

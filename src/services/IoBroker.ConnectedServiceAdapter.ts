@@ -4,8 +4,10 @@ import {
   AcaadHost,
   AcaadOutcome,
   AcaadServerMetadata,
+  AcaadUnhandledEventReceivedEvent,
   AcaadUnitOfMeasure,
   Component,
+  ComponentCommandOutcomeEvent,
   ComponentDescriptor,
   ComponentType,
   ComponentTypes,
@@ -41,6 +43,10 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
   ) {
     this._ioBrokerContext = ioBrokerContext;
     this._logger = logger;
+  }
+
+  shouldSyncMetadataOnServerConnect(): boolean {
+    return true;
   }
 
   /*
