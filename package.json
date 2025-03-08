@@ -1,6 +1,6 @@
 {
   "name": "iobroker.acaad",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "acaad",
   "author": {
     "name": "OlliMartin",
@@ -39,12 +39,12 @@
     "tsyringe": "~4.8.0",
     "effect": "~3.12.10",
     "reflect-metadata": "~0.2.2",
-    "@acaad/core": "~0.1.0-alpha.1",
-    "@acaad/abstractions": "~0.1.0-alpha.1"
+    "@acaad/core": "~0.1.0-alpha.2",
+    "@acaad/abstractions": "~0.1.0-alpha.2"
   },
   "devDependencies": {
-    "@acaad/toolchain": "0.1.0-alpha.1",
-    "@acaad/testing": "0.1.0-alpha.1",
+    "@acaad/toolchain": "0.1.0-alpha.2",
+    "@acaad/testing": "0.1.0-alpha.2",
     "@pnpm/exportable-manifest": "~1000.0.4",
     "@tsconfig/node20": "~20.1.4",
     "typescript": "~5.6.0",
