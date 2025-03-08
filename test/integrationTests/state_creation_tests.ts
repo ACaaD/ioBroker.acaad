@@ -2,50 +2,15 @@ import { TestContext } from '@iobroker/testing/build/tests/integration';
 import { TestHarness } from '@iobroker/testing/build/tests/integration/lib/harness';
 // import { createSignalR } from "./mockServices/acaad-signalR-server.ts";
 import { createServer } from '@mocks-server/main';
-import openApi from './mocks/routes/open-api';
-import collections from './mocks/collections';
 import { TargetService } from '../../src/lib/types';
 // import { createSignalR, SIGNAL_R_PORT } from "./mockServices/acaad-signalR-server.ts";
 import { expect } from 'chai';
 import { Effect } from 'effect';
-import portfinder from 'portfinder';
 
 function stateCreationTests(testContext: TestContext) {
   testContext.suite('stateCreation', (getHarness) => {
     let harness: TestHarness;
     // let signalR;
-
-    const disposables: (() => void)[] = [];
-    const asyncDisposables: (() => Promise<void>)[] = [];
-
-    const createMockServer = async (selectedCollection?: string) => {
-      const nextFreePort = await portfinder.getPortPromise({ port: 8_000 });
-      const adminPort = await portfinder.getPortPromise({ port: 20_000 });
-
-      const server = createServer({
-        server: {
-          port: nextFreePort
-        },
-        mock: {
-          collections: {
-            selected: selectedCollection
-          }
-        },
-        plugins: {
-          adminApi: {
-            port: adminPort
-          }
-        }
-      });
-      await server.start().then(async () => {
-        const { loadRoutes, loadCollections } = server.mock.createLoaders();
-        loadRoutes(openApi);
-        loadCollections(collections);
-      });
-
-      asyncDisposables.push(() => server.stop());
-      return nextFreePort;
-    };
 
     before(async () => {
       // signalR = await createSignalR();
@@ -82,10 +47,7 @@ function stateCreationTests(testContext: TestContext) {
       await Effect.runPromise(Effect.sleep(5000));
     });
 
-    after(async () => {
-      disposables.map((d) => d());
-      await Promise.all(asyncDisposables.map((d) => d()));
-    });
+    after(async () => {});
 
     /* __ BIG TODO __*/
     /* Refactor meeeeee (dont await await await) */
