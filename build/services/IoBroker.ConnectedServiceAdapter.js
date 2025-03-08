@@ -31,7 +31,7 @@ __export(IoBroker_ConnectedServiceAdapter_exports, {
   IoBrokerCsAdapter: () => IoBrokerCsAdapter
 });
 module.exports = __toCommonJS(IoBroker_ConnectedServiceAdapter_exports);
-var import_src = require("@acaad/abstractions/src");
+var import_abstractions = require("@acaad/abstractions");
 var import_core = require("@acaad/core");
 var import_tsyringe = require("tsyringe");
 var import_IoBroker = require("./IoBroker.Context");
@@ -52,6 +52,9 @@ let IoBrokerCsAdapter = class {
   shouldSyncMetadataOnServerConnect() {
     return true;
   }
+  getMetadataSyncInterval() {
+    return 3e4;
+  }
   /*
     Fatal errors (AcaadFatalError), or its subclasses, result in the graceful termination of the ACaaD core framework. 
     It has been confirmed that the only 'unexpected' errors an ioBroker adapter may encounter 
@@ -61,7 +64,7 @@ let IoBrokerCsAdapter = class {
   */
   mapServiceError(functionName, error) {
     const msg = `An unhandled error occurred processing function '${functionName}'.`;
-    return new import_src.AcaadFatalError(error, msg);
+    return new import_abstractions.AcaadFatalError(error, msg);
   }
   async onServerConnectedAsync(server, as) {
     const device = this._ioBrokerContext.getDevicePrefix(server);
@@ -90,10 +93,9 @@ let IoBrokerCsAdapter = class {
     throw new Error("Method not implemented.");
   }
   async updateComponentStateAsync(cd, inboundStateUpdate, as) {
-    var _a;
     const stateId = `${cd.toIdentifier()}.Value`;
     await this._ioBrokerContext.setStateAsync(stateId, {
-      val: (_a = inboundStateUpdate.originalOutcome.outcomeRaw) != null ? _a : ""
+      val: inboundStateUpdate.determinedTargetState
     });
   }
   async createServerMetadataAsync(deviceId, serverMetadata) {
@@ -191,9 +193,19 @@ let IoBrokerCsAdapter = class {
   async registerStateChangeCallbackAsync(cb, as) {
     await this._ioBrokerContext.registerStateChangeCallbackAsync(cb);
   }
+  mapAcaadComponentType(component) {
+    const componentMetadata = component.getMetadata();
+    if (componentMetadata.type === "Boolean") {
+      return "boolean";
+    } else if (componentMetadata.type === "Long" || componentMetadata.type === "Decimal") {
+      return "number";
+    } else {
+      return "string";
+    }
+  }
   handleComponent(component) {
     switch (component.type) {
-      case import_src.ComponentType.Button:
+      case import_abstractions.ComponentType.Button:
         return [
           {
             _id: import_IoBroker2.Actions.Trigger,
@@ -206,13 +218,13 @@ let IoBrokerCsAdapter = class {
             }
           }
         ];
-      case import_src.ComponentType.Sensor:
+      case import_abstractions.ComponentType.Sensor:
         return [
           {
             _id: "Value",
             type: "state",
             common: {
-              type: "string",
+              type: this.mapAcaadComponentType(component),
               role: "state",
               read: true,
               write: false
@@ -230,10 +242,10 @@ let IoBrokerCsAdapter = class {
             }
           }
         ];
-      case import_src.ComponentType.Switch:
+      case import_abstractions.ComponentType.Switch:
         return [
           {
-            _id: import_IoBroker2.Actions.Switch,
+            _id: "Value",
             type: "state",
             common: {
               type: "boolean",

@@ -45,7 +45,7 @@ __export(IoBroker_Context_exports, {
   IoBrokerContext: () => IoBrokerContext
 });
 module.exports = __toCommonJS(IoBroker_Context_exports);
-var import_src = require("@acaad/abstractions/src");
+var import_abstractions = require("@acaad/abstractions");
 var import_IoBroker = __toESM(require("./IoBroker.Logger"));
 var import_tsyringe = require("tsyringe");
 var import_effect = require("effect");
@@ -72,14 +72,14 @@ let IoBrokerContext = class {
     }
     let auth;
     if (authFromCfg) {
-      auth = new import_src.AcaadAuthentication(
+      auth = new import_abstractions.AcaadAuthentication(
         authFromCfg.tokenUrl,
         authFromCfg.clientId,
         authFromCfg.clientSecret,
         []
       );
     }
-    return target.map((t) => new import_src.AcaadHost(t.name, t.host, t.port, auth, t.signalrPort));
+    return target.map((t) => new import_abstractions.AcaadHost(t.name, t.host, t.port, auth, t.signalrPort));
   }
   getNamespace() {
     return this._adapter.namespace;
@@ -131,7 +131,7 @@ let IoBrokerContext = class {
   getComponentDescriptorByComponent(component) {
     const deviceName = `${this.getDevicePrefix(component.serverMetadata.host)}.${component.name}`;
     const escapedName = this.escapeComponentName(deviceName);
-    return new import_src.ComponentDescriptor(escapedName);
+    return new import_abstractions.ComponentDescriptor(escapedName);
   }
   // TODO: Temporary
   isNullOrUndefined(val) {

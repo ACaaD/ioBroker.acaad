@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import * as utils from '@iobroker/adapter-core';
 import { DependencyContainer } from 'tsyringe';
 
-import { IConnectedServiceAdapter, IConnectedServiceContext } from '@acaad/abstractions/src';
+import { IConnectedServiceAdapter, IConnectedServiceContext } from '@acaad/abstractions';
 
 import { FrameworkContainer, ComponentManager } from '@acaad/core';
 
@@ -57,14 +57,7 @@ class Acaad extends utils.Adapter {
     const instance = this._fwkContainer.resolve(ComponentManager) as ComponentManager;
     this._componentManager = Option.some(instance);
 
-    const componentCreation = await instance.createMissingComponentsAsync();
-
-    if (componentCreation) {
-      await instance.startAsync();
-    } else {
-      console.log('Failed to create components.');
-      // TODO: Stop the adapter
-    }
+    await instance.startAsync();
   }
 
   private async onUnload(callback: () => void): Promise<void> {

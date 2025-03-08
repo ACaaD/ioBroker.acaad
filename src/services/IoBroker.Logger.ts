@@ -1,4 +1,4 @@
-import { ICsLogger } from '@acaad/abstractions/src';
+import { ICsLogger } from '@acaad/abstractions';
 import { Cause } from 'effect';
 
 class IoBrokerLogger implements ICsLogger {
@@ -9,8 +9,7 @@ class IoBrokerLogger implements ICsLogger {
   }
 
   logTrace(...data: any[]): void {
-    // TODO: Change from silly debug -> Adjust back
-    const logCb = this.adapter.log?.debug;
+    const logCb = this.adapter.log?.silly;
     this.log(logCb, data);
   }
 

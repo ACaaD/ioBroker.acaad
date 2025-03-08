@@ -58,12 +58,7 @@ class Acaad extends utils.Adapter {
   async onReady() {
     const instance = this._fwkContainer.resolve(import_core.ComponentManager);
     this._componentManager = import_effect.Option.some(instance);
-    const componentCreation = await instance.createMissingComponentsAsync();
-    if (componentCreation) {
-      await instance.startAsync();
-    } else {
-      console.log("Failed to create components.");
-    }
+    await instance.startAsync();
   }
   async onUnload(callback) {
     try {

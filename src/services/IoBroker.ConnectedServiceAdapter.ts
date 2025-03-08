@@ -14,16 +14,15 @@ import {
   ConnectedServiceFunction,
   IConnectedServiceAdapter,
   ICsLogger,
-  OutboundStateChangeCallback
-} from '@acaad/abstractions/src';
+  OutboundStateChangeCallback,
+  InboundStateUpdate
+} from '@acaad/abstractions';
 
 import { DependencyInjectionTokens } from '@acaad/core';
 
 import { inject, injectable, singleton } from 'tsyringe';
 import { IoBrokerContext } from './IoBroker.Context';
 import { Actions } from './IoBroker.Constants';
-import { Cause } from 'effect';
-import { InboundStateUpdate } from '@acaad/abstractions/src/model/InboundStateUpdate';
 
 const STATE_SUFFIXES = {
   ACAAD_VERSION: 'acaadVersion',
@@ -48,6 +47,10 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
 
   shouldSyncMetadataOnServerConnect(): boolean {
     return true;
+  }
+
+  getMetadataSyncInterval(): number | string {
+    return 30_000;
   }
 
   /*
@@ -108,7 +111,7 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
 
     // TODO: Hard-cast seems weird. Check why this is here in the first place.
     await this._ioBrokerContext.setStateAsync(stateId, {
-      val: inboundStateUpdate.originalOutcome.outcomeRaw ?? ''
+      val: inboundStateUpdate.determinedTargetState as ioBroker.StateValue
     });
   }
 
@@ -219,7 +222,18 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
     await this._ioBrokerContext.registerStateChangeCallbackAsync(cb);
   }
 
-  handleComponent(component: ComponentTypes): ioBroker.PartialObject[] {
+  mapAcaadComponentType(component: Component): ioBroker.CommonType {
+    const componentMetadata = component.getMetadata();
+    if (componentMetadata.type === 'Boolean') {
+      return 'boolean';
+    } else if (componentMetadata.type === 'Long' || componentMetadata.type === 'Decimal') {
+      return 'number';
+    } else {
+      return 'string';
+    }
+  }
+
+  handleComponent(component: Component): ioBroker.PartialObject[] {
     switch (component.type) {
       case ComponentType.Button:
         return [
@@ -240,7 +254,7 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
             _id: 'Value',
             type: 'state',
             common: {
-              type: 'string',
+              type: this.mapAcaadComponentType(component),
               role: 'state',
               read: true,
               write: false
@@ -261,7 +275,7 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
       case ComponentType.Switch:
         return [
           {
-            _id: Actions.Switch,
+            _id: 'Value',
             type: 'state',
             common: {
               type: 'boolean',
