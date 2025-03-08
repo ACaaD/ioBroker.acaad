@@ -23,6 +23,7 @@ import { inject, injectable, singleton } from 'tsyringe';
 import { IoBrokerContext } from './IoBroker.Context';
 import { Actions } from './IoBroker.Constants';
 import { Cause } from 'effect';
+import { InboundStateUpdate } from '@acaad/abstractions/src/model/InboundStateUpdate';
 
 const STATE_SUFFIXES = {
   ACAAD_VERSION: 'acaadVersion',
@@ -97,13 +98,17 @@ export class IoBrokerCsAdapter implements IConnectedServiceAdapter {
     throw new Error('Method not implemented.');
   }
 
-  async updateComponentStateAsync(cd: ComponentDescriptor, obj: unknown, as: AbortSignal): Promise<void> {
+  async updateComponentStateAsync(
+    cd: ComponentDescriptor,
+    inboundStateUpdate: InboundStateUpdate,
+    as: AbortSignal
+  ): Promise<void> {
     // Identifier can be discovered through cd.type inspection? Does this make sense?
     const stateId = `${cd.toIdentifier()}.Value`;
 
     // TODO: Hard-cast seems weird. Check why this is here in the first place.
     await this._ioBrokerContext.setStateAsync(stateId, {
-      val: (obj as AcaadOutcome)?.outcomeRaw ?? ''
+      val: inboundStateUpdate.originalOutcome.outcomeRaw ?? ''
     });
   }
 

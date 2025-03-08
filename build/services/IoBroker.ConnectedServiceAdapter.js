@@ -89,11 +89,11 @@ let IoBrokerCsAdapter = class {
   transformUnitOfMeasure(uom) {
     throw new Error("Method not implemented.");
   }
-  async updateComponentStateAsync(cd, obj, as) {
+  async updateComponentStateAsync(cd, inboundStateUpdate, as) {
     var _a;
     const stateId = `${cd.toIdentifier()}.Value`;
     await this._ioBrokerContext.setStateAsync(stateId, {
-      val: (_a = obj == null ? void 0 : obj.outcomeRaw) != null ? _a : ""
+      val: (_a = inboundStateUpdate.originalOutcome.outcomeRaw) != null ? _a : ""
     });
   }
   async createServerMetadataAsync(deviceId, serverMetadata) {
